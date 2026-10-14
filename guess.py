@@ -3,30 +3,65 @@ import random
 # ---------- Settings ----------
 DEBUG_SECRET = None   # For testing, set to a number such as 42. Set back to None before your final commit.
 TIME_LIMIT = 60       # Seconds allowed in Time Challenge mode
-low = 1
-high = 100
-attempts = 0
-print("Welcome to the Number Guessing Game!!\n")
-number = random.randint(low, high)
+GAME_MODES = ["Easy Mode", "Medium Mode", "Hard Mode"]
+LOW = None
+HIGH = None
+ATTEMPTS = None
+COUNTER = 0
+# ---------- Choose a level ----------
+# Goal: keep asking until the player picks a valid level, then set the range and attempt limit.
 
 while(True):
-    guess = input(f"Enter your guess between {low} and {high}: ")
 
-    if guess.isdigit() == False or int(guess) < low or int(guess) > high:
-        print(f"Please enter a valid number. Please guess a number between {low} and {high}.")
+    print("Welcome to the Number Guessing Game!!\n")
+    for i, g in enumerate(GAME_MODES):
+            print(f"{i + 1}. {g}")
+    level = input("Choose a level (1-3): ")
+    if level.isdigit() and 1 <= int(level) <= 3:
+        level = int(level)
+    else:
+        print("Please enter a valid level.")
+        continue
+
+    match level:
+        case 1:
+            LOW = 1
+            HIGH = 50
+            ATTEMPTS = 10
+            break   
+        case 2:
+            LOW = 1
+            HIGH = 100
+            ATTEMPTS = 8
+            break
+        case 3:
+            LOW = 1
+            HIGH = 500
+            ATTEMPTS = 10 
+            break      
+
+gen_number = random.randint(LOW, HIGH)
+while(True):
+    
+    guess = input(f"Enter your guess between {LOW} and {HIGH}: ")
+
+    COUNTER += 1
+    if guess.isdigit() == False or int(guess) < LOW or int(guess) > HIGH:
+        print(f"Invalid Guess. Guess a number between {LOW} and {HIGH}. Attempts left: {ATTEMPTS-COUNTER}")
         continue
 
     guess = int(guess)
-    attempts += 1
-    if guess < number:
-        print("Too low! Try again.")
-    elif guess > number:
-        print("Too high! Try again.")
-    else:
-        print(f"Congratulations! You've guessed the number {number} in {attempts} attempts.")
+    if guess == gen_number:
+        print(f"Congratulations! You've guessed the number {gen_number} in {COUNTER} attempts.")
         break
-# ---------- Choose a level ----------
-# Goal: keep asking until the player picks a valid level, then set the range and attempt limit.
+    elif guess < gen_number:
+        print(f"Too low! Try again. Attempts left: {ATTEMPTS-COUNTER}")
+    elif guess > gen_number:
+        print(f"Too high! Try again. Attempts left: {ATTEMPTS-COUNTER}")
+    if COUNTER == ATTEMPTS:
+        print(f"Sorry, you've run out of attempts. The number was {gen_number}.")
+        break
+            
 
 # ---------- Choose a mode ----------
 # Goal: keep asking until the player picks Classic or Time Challenge.
