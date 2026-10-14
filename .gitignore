@@ -1,0 +1,13 @@
+# Virtual environment (covers both common names)
+venv/
+.venv/
+
+# Python bytecode cache
+__pycache__/
+*.pyc
+
+# VS Code workspace settings (remove this line if you want to share them)
+.vscode/
+
+# macOS
+.DS_Store
