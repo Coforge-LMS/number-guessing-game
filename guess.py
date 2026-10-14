@@ -1,12 +1,32 @@
-import random
 import time
-
+import random
 # ---------- Settings ----------
 DEBUG_SECRET = None   # For testing, set to a number such as 42. Set back to None before your final commit.
 TIME_LIMIT = 60       # Seconds allowed in Time Challenge mode
+low = 1
+high = 100
+attempts = 0
+print("Welcome to the Number Guessing Game!!\n")
+number = random.randint(low, high)
 
-print("Welcome to the Number Guessing Game")
+while(True):
+    guess = input(f"Enter your guess between {low} and {high}: ")
+    attempts += 1
 
+    if guess.isdigit() == False:
+        print("Please enter a valid number.")
+        continue
+
+    guess = int(guess)
+    if guess < low or guess > high:
+        print(f"Your guess is out of bounds! Please guess a number between {low} and {high}.")
+    if guess < number:
+        print("Too low! Try again.")
+    elif guess > number:
+        print("Too high! Try again.")
+    else:
+        print(f"Congratulations! You've guessed the number {number} in {attempts} attempts.")
+        break
 # ---------- Choose a level ----------
 # Goal: keep asking until the player picks a valid level, then set the range and attempt limit.
 
@@ -21,3 +41,4 @@ print("Welcome to the Number Guessing Game")
 
 # ---------- End of round ----------
 # Goal: show the result that matches how the round ended.
+
