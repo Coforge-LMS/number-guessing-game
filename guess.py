@@ -12,15 +12,12 @@ number = random.randint(low, high)
 while(True):
     guess = input(f"Enter your guess between {low} and {high}: ")
 
-    if guess.isdigit() == False:
-        print("Please enter a valid number.")
+    if guess.isdigit() == False or int(guess) < low or int(guess) > high:
+        print(f"Please enter a valid number. Please guess a number between {low} and {high}.")
         continue
 
-    attempts += 1
     guess = int(guess)
-    if guess < low or guess > high:
-        print(f"Your guess is out of bounds! Please guess a number between {low} and {high}.")
-        continue
+    attempts += 1
     if guess < number:
         print("Too low! Try again.")
     elif guess > number:
