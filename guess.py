@@ -20,6 +20,7 @@ while(True):
     guess = int(guess)
     if guess < low or guess > high:
         print(f"Your guess is out of bounds! Please guess a number between {low} and {high}.")
+        continue
     if guess < number:
         print("Too low! Try again.")
     elif guess > number:
