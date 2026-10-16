@@ -3,7 +3,8 @@ import random
 # ---------- Settings ----------
 DEBUG_SECRET = None   # For testing, set to a number such as 42. Set back to None before your final commit.
 TIME_LIMIT = 60       # Seconds allowed in Time Challenge mode
-GAME_MODES = ["Easy Mode", "Medium Mode", "Hard Mode"]
+GAME_MODES = ["Easy Mode", "Medium Mode", "Hard Mode"] #Levels
+ROUND_MODES = ["Classic", "Time Challenge"] #Modes
 LOW = None
 HIGH = None
 ATTEMPTS = None
@@ -14,8 +15,8 @@ COUNTER = 0
 while(True):
 
     print("Welcome to the Number Guessing Game!!\n")
-    for i, g in enumerate(GAME_MODES):
-            print(f"{i + 1}. {g}")
+    for index, g in enumerate(GAME_MODES):
+            print(f"{index + 1}. {g}")
     level = input("Choose a level (1-3): ")
     if level.isdigit() and 1 <= int(level) <= 3:
         level = int(level)
@@ -40,6 +41,23 @@ while(True):
             ATTEMPTS = 10 
             break      
 
+# ---------- Choose a mode ----------
+# Goal: keep asking until the player picks Classic or Time Challenge.
+
+
+while (True):
+    
+    for index, m in enumerate(ROUND_MODES):
+        print(f"{index + 1}. {m}")
+    mode = input("Choose a mode (1-2): ")
+    if mode.isdigit() and 1 <= int(mode) <= 2:
+        mode = int(mode)
+        break
+    else:
+        print("Please enter a valid mode.")
+# ---------- Set up the round ----------
+# Goal: pick the secret number (use DEBUG_SECRET when it is not None) and start the clock.
+
 gen_number = random.randint(LOW, HIGH)
 while(True):
     
@@ -62,13 +80,6 @@ while(True):
         print(f"Sorry, you've run out of attempts. The number was {gen_number}.")
         break
             
-
-# ---------- Choose a mode ----------
-# Goal: keep asking until the player picks Classic or Time Challenge.
-
-# ---------- Set up the round ----------
-# Goal: pick the secret number (use DEBUG_SECRET when it is not None) and start the clock.
-
 # ---------- Guess loop ----------
 # Goal: keep asking for guesses until the player wins, runs out of attempts, or runs out of time.
 
