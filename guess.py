@@ -58,7 +58,11 @@ while (True):
 # ---------- Set up the round ----------
 # Goal: pick the secret number (use DEBUG_SECRET when it is not None) and start the clock.
 
-gen_number = random.randint(LOW, HIGH)
+if DEBUG_SECRET is not None:
+    gen_number = DEBUG_SECRET
+else:
+    gen_number = random.randint(LOW, HIGH)
+    
 while(True):
     
     guess = input(f"Enter your guess between {LOW} and {HIGH}: ")
