@@ -44,9 +44,7 @@ while(True):
 
 # ---------- Choose a mode ----------
 # Goal: keep asking until the player picks Classic or Time Challenge.
-
-
-while (True):
+while(True):
     
     for index, m in enumerate(ROUND_MODES):
         print(f"{index + 1}. {m}")
@@ -56,6 +54,7 @@ while (True):
         break
     else:
         print("Please enter a valid mode.")
+
 # ---------- Set up the round ----------
 # Goal: pick the secret number (use DEBUG_SECRET when it is not None) and start the clock.
 
@@ -66,14 +65,21 @@ else:
 
 start_time = time.time()
 
+# ---------- Guess loop ----------
+# Goal: keep asking for guesses until the player wins, runs out of attempts, or runs out of time.
+
 while(True):
     
+    if mode == 2:
+        time_left = int(TIME_LIMIT - (time.time() - start_time))
+        print(f"Time Remaining: {time_left} seconds")
     guess = input(f"Enter your guess between {LOW} and {HIGH}: ")
 
-    COUNTER += 1
     if guess.isdigit() == False or int(guess) < LOW or int(guess) > HIGH:
         print(f"Invalid Guess. Guess a number between {LOW} and {HIGH}. Attempts left: {ATTEMPTS-COUNTER}")
         continue
+    
+    COUNTER += 1
     if mode == 2 and time.time() - start_time > TIME_LIMIT:
         RESULT = "timeout!"
         break
@@ -90,16 +96,12 @@ while(True):
         RESULT = "lose!"
         break
             
-# ---------- Guess loop ----------
-# Goal: keep asking for guesses until the player wins, runs out of attempts, or runs out of time.
-
-
-while (True):
-
-    if mode ==2:
-        time_left = int(TIME_LIMIT - (time.time() - start_time))
-        print(f"Time Remaining: {time_left} seconds")
-    guess = input(f"Enter your guess between {LOW} and {HIGH}: ")
 # ---------- End of round ----------
 # Goal: show the result that matches how the round ended.
 
+if RESULT == "win!":
+    print(f"Congratulations! You guessed the number {gen_number} in {COUNTER} attempts.")
+elif RESULT == "lose!":
+    print(f"Sorry, you've used all your attempts. The number was {gen_number}.")        
+elif RESULT == "timeout!":
+    print(f"Time's Up,  the number was {gen_number}.")
