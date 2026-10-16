@@ -74,17 +74,20 @@ while(True):
     if guess.isdigit() == False or int(guess) < LOW or int(guess) > HIGH:
         print(f"Invalid Guess. Guess a number between {LOW} and {HIGH}. Attempts left: {ATTEMPTS-COUNTER}")
         continue
+    if mode == 2 and time.time() - start_time > TIME_LIMIT:
+        RESULT = "timeout!"
+        break
 
     guess = int(guess)
     if guess == gen_number:
-        print(f"Congratulations! You've guessed the number {gen_number} in {COUNTER} attempts.")
+        RESULT = "win!"
         break
     elif guess < gen_number:
         print(f"Too low! Try again. Attempts left: {ATTEMPTS-COUNTER}")
     elif guess > gen_number:
         print(f"Too high! Try again. Attempts left: {ATTEMPTS-COUNTER}")
     if COUNTER == ATTEMPTS:
-        print(f"Sorry, you've run out of attempts. The number was {gen_number}.")
+        RESULT = "lose!"
         break
             
 # ---------- Guess loop ----------
