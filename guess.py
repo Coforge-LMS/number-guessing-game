@@ -9,6 +9,7 @@ LOW = None
 HIGH = None
 ATTEMPTS = None
 COUNTER = 0
+RESULT = None
 # ---------- Choose a level ----------
 # Goal: keep asking until the player picks a valid level, then set the range and attempt limit.
 
@@ -62,7 +63,9 @@ if DEBUG_SECRET is not None:
     gen_number = DEBUG_SECRET
 else:
     gen_number = random.randint(LOW, HIGH)
-    
+
+start_time = time.time()
+
 while(True):
     
     guess = input(f"Enter your guess between {LOW} and {HIGH}: ")
