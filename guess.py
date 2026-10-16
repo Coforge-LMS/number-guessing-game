@@ -90,6 +90,13 @@ while(True):
 # ---------- Guess loop ----------
 # Goal: keep asking for guesses until the player wins, runs out of attempts, or runs out of time.
 
+
+while (True):
+
+    if mode ==2:
+        time_left = int(TIME_LIMIT - (time.time() - start_time))
+        print(f"Time Remaining: {time_left} seconds")
+    guess = input(f"Enter your guess between {LOW} and {HIGH}: ")
 # ---------- End of round ----------
 # Goal: show the result that matches how the round ended.
 
